@@ -117,9 +117,11 @@ const createGroupChat = asyncHandler(async(req,res)=>{
         const groupChat = await Chat.create({
             chatName : req.body.name,
             users : users,
-            isGroupChat : true ,
-            groupAdmin : req.users,
+            isGroupChat : true,
+            groupAdmin : req.user,
         });
+
+        console.log(groupChat)
 
         const fullGroupChat = await Chat.findOne({_id : groupChat._id})
         .populate("users" , "-password")
